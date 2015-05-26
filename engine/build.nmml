@@ -4,11 +4,16 @@
   <meta
      title="Acadnme"
      package="com.acadnme.launcher"
-     version="1.0.${gitver:}"
-     buildNumber="${gitver:}"
+     version="1.0.2"
+     buildNumber="2"
      company="nme" 
      bin="temp" 
   />
+
+  <meta
+     version="1.0.${gitver:}"
+     buildNumber="${gitver:}"
+     if="android" />
   
   <app
      file="Acadnme" 
