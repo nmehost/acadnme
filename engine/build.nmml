@@ -11,9 +11,9 @@
   />
 
   <meta
-     version="1.0.${gitver:}"
-     buildNumber="${gitver:}"
-     if="android-not" />
+     version="1.0"
+     buildNumber="1"
+     />
   
   <app
      file="Acadnme" 
@@ -76,7 +76,7 @@
   <haxedef name="scriptable" />
   <haxeflag name="-dce no" />
 
-  <certificate path="../../signature/android.keystore" alias="nme" password="${KEYSTORE_PASSWD}" if="KEYSTORE_PASSWD"/>
+  <certificate path="${KEYSTORE_PATH}/android.keystore" alias="nme" password="${KEYSTORE_PASSWD}" if="KEYSTORE_PASSWD"/>
 
   
 </project>
