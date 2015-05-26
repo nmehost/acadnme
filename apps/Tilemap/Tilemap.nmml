@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+  <app
+     file="Tilemap"
+     title="GM2D Tilemap"
+     package="com.gm2d.tilemap"
+     version="1.0"
+     company="Gm2d" 
+	  main="Tilemap"
+  />
+
+  <window
+      width="480"
+		height="320"
+		orientation="landscape"
+		fps="60"
+		background="0x202040"
+      resizeable="true"
+		hardware="true"
+	/>
+
+   <preloader name="nme.preloader.Basic" />
+
+   <icon name="icon.svg" />
+
+	<assets>
+	 <image name="Tiles.png"/>
+	</assets>
+
+  <set name="deploy" value = "nme:../../bin/apps" if="installer" />
+  
+  <haxelib name="nme" />
+  <haxelib name="gm2d" />
+  <haxelib name="acadnme" if="cppia" />
+
+  <ndll name="nme" haxelib="nme"/>
+  <ndll name="zlib" />
+  <ndll name="std" />
+  <ndll name="regexp" />
+
+</project>

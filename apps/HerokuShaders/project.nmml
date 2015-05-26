@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="Heroku Shaders" package="io.nme.samples.herokushaders" version="1.0.0" company="NME" />
+	<app main="Main" path="Export" file="HerokuShaders" />
+	<window require-shaders="true" />
+	
+   <set name="BASE" value="${haxelib:nme}/samples/HerokuShaders" />
+
+	<source path="${BASE}/Source" />
+	
+	<haxelib name="nme" />
+
+   <set name="deploy" value = "nme:../../bin/apps" if="installer" />
+   <haxelib name="acadnme" if="cppia" />
+	
+	<assets path="${BASE}/Assets" rename="assets" exclude="nme.svg" />
+	<icon path="${BASE}/Assets/nme.svg" />
+	
+</project>

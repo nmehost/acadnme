@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+   <engine name="Acadnme" version="1.0" />
+   <classpath name="export" if="cppia" />
+</project>

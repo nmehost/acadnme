@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  
+  <meta
+     title="Acadnme"
+     package="com.acadnme.launcher"
+     version="1.0.${gitver:}"
+     buildNumber="${gitver:}"
+     company="nme" 
+     bin="temp" 
+  />
+  
+  <app
+     file="Acadnme" 
+     main="Acadnme"
+  />
+  
+  <window
+     width="400" 
+     height="400" 
+     fps="0"
+     background="0xffffff"
+     require_shaders="true"
+     resizable="true"
+     hardware="true"
+  />
+
+  <set name="deploy" value="bindir:../bin" if="cpp" />
+
+  <set name="nativeFonts" value="false" />
+
+  <android>
+     <appPermission value="android.permission.WRITE_EXTERNAL_STORAGE" />
+     <appPermission value="android.permission.READ_EXTERNAL_STORAGE" />
+     <appPermission value="android.permission.INTERNET" />
+     <appPermission value="android.permission.ACCESS_WIFI_STATE" />
+     <appPermission value="android.permission.ACCESS_WIFI_STATE" />
+     <appHeader value='android:isGame="true"' />
+
+     <appPermission value="android.software.leanback" required="false" />
+     <appFeature value='android.software.leanback' required='false'/>
+     <appFeature value='android.hardware.touchscreen' required='false'/>
+     <appIntent value="android.intent.category.LEANBACK_LAUNCHER" />
+  </android>
+
+  <assets from="../bin/apps/"  if="mobile" unless="nocompile" >
+     <asset name="AcadnmeBoot.nme" />
+     <asset name="Flappybalt.nme" />
+     <asset name="PiratePig.nme" />
+     <asset name="Tilemap.nme" />
+     <asset name="HerokuShaders.nme" />
+  </assets>
+
+  <banner name="assets/banner.svg" />
+  <icon name="assets/icon.svg" />
+
+  <mkdir name="../export"/>
+  <export name="../export/export_classes.info" sourceDir="../export" />
+  
+  <source path="src" />
+
+  <include name="../include.xml" />
+  
+  <ndll name="sqlite" static="true" />
+  <ndll name="mysql5" static="true" />
+  <ndll name="regexp" static="true" />
+  <ndll name="std" static="true" />
+  <ndll name="zlib" static="true" />
+
+  <haxelib name="nme" />
+  <haxedef name="scriptable" />
+  <haxeflag name="-dce no" />
+
+  <certificate path="../../signature/android.keystore" alias="nme" password="${KEYSTORE_PASSWD}" if="KEYSTORE_PASSWD"/>
+
+  
+</project>

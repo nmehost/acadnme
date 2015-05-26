@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="Pirate Pig" package="io.nme.samples.piratepig" version="1.0.0" company="Nme/Joshua Granick" />
+	<app path="Export" file="PiratePig" main="io.nme.samples.piratepig.PiratePig" />
+	
+	<window width="600" height="800" />
+
+   <set name="BASE" value="${haxelib:nme}/samples/PiratePig" />
+	
+	<source path="${BASE}/Source" />
+
+   <set name="deploy" value = "nme:../../bin/apps" if="installer" />
+	
+	<haxelib name="nme" />
+	<haxelib name="actuate" />
+	<haxelib name="acadnme" if="cppia" />
+	
+	<ios binaries="armv7" />
+	
+	<assets path="${BASE}/Assets/fonts" rename="fonts" include="*.ttf" />
+	<assets path="${BASE}/Assets/images" rename="images" include="*" exclude="icon.svg" />
+	
+	<icon path="${BASE}/Assets/images/icon.svg" />
+	
+	<assets path="${BASE}/Assets/sounds" rename="sounds" >
+		<sound path="3.ogg" id="sound3" />
+		<sound path="4.ogg" id="sound4" />
+		<sound path="5.ogg" id="sound5" />
+		<music path="theme.ogg" id="soundTheme" />
+	</assets>
+	
+</project>
