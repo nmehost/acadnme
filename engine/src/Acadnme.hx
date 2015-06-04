@@ -32,7 +32,7 @@ class Acadnme extends Sprite implements IScriptHandler
       super();
 
       instance = this;
-      var startServer = true;
+      var startServer = #if emscripten false #else true #end;
 
       // For attaching a debugger
       var delay = Sys.getEnv("ACADNME_DELAY")!=null;
@@ -102,13 +102,17 @@ class Acadnme extends Sprite implements IScriptHandler
          listener.addEventListener(Event.ENTER_FRAME, onEnter);
          runBoot();
       }
+      else
+      {
+         runBoot();
+      }
 
    }
 
 
    public static function getNmeAppsDir() : String
    {
-      #if (!android && !iphone)
+      #if (!android && !iphone && !emscripten)
       // Find list of nme apps in the "bin/apps" directory
       var exePath = nme.system.System.exeName;
       exePath = exePath.split("\\").join("/");
