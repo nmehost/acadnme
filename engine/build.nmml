@@ -21,8 +21,8 @@
   />
   
   <window
-     width="400" 
-     height="400" 
+     width="640" 
+     height="480" 
      fps="0"
      background="0xffffff"
      require_shaders="true"
