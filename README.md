@@ -34,9 +34,21 @@ nme android
 or
 nme ios update
 ```
+If you need a debug build, you can add the "-debug" flag:
+```
+cd engine
+nme cpp -debug
+```
+
 
 Having built the host, you can test the included apps (or indeed any project) with
 ```
 cd app/MyApp
 nme cppia
+```
+
+From a git version, you will also need to build the 'run.n' script so "haxelib run..." will work.  This is done with:
+```
+cd tools/run
+haxe compile.hxml
 ```
