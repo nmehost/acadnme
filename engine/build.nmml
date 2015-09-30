@@ -4,15 +4,13 @@
   <meta
      title="Acadnme"
      package="com.acadnme.launcher"
-     version="1.0.3"
-     buildNumber="5"
      company="nme" 
      bin="temp" 
   />
 
   <meta
      version="1.0"
-     buildNumber="5"
+     buildNumber="6"
      />
   
   <app

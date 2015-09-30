@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": [ "cpp", "nme", "cppia", "acadnme", "android", "ios"  ],
   "description": "Acadnme provides a scripting host for Nme applications on iOS, Android, Windows, Mac and Linux platforms",
-  "version": "1.0.0",
-  "binaryversion": "6",
+  "version": "1.1.0",
+  "binaryversion": "7",
   "releasenote": "see Changes.md",
   "contributors": [ "gamehaxe" ],
   "dependencies": {}
