@@ -14,11 +14,16 @@ class Player extends FlxSprite
 		animation.add("flap",[1,0,1,2],12,false);
 	}
 	
-	override public function update()
+	override public function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER ||
-                 FlxG.touches.justStarted().length > 0 || FlxG.mouse.justPressed) {
-			if (acceleration.y == 0) {
+		#if !FLX_NO_KEYBOARD
+		if (FlxG.keys.justPressed.SPACE)
+		#elseif !FLX_NO_TOUCH
+		if (FlxG.touches.justStarted().length > 0)
+		#end
+		{
+			if (acceleration.y == 0)
+			{
 				acceleration.y = 500;
 				velocity.x = 80;
 			}
@@ -28,7 +33,7 @@ class Player extends FlxSprite
 			animation.play("flap", true);
 		}
 		
-		super.update();
+		super.update(elapsed);
 	}
 	
 	override public function kill():Void

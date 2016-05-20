@@ -1,4 +1,5 @@
 package;
+
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import flixel.util.FlxSave;
@@ -30,17 +31,15 @@ class Reg
 	 */
 	static public function dustMote():BitmapData
 	{
-		if (dustMoteData == null) {
+		if (dustMoteData == null)
 			dustMoteData = new BitmapData(2, 2, true, 0x88FFFFFF);
-		}
-		
 		return dustMoteData;
 	}
 	
 	static private var dustMoteData:BitmapData;
 	
 	/**
-	 * Draws the bounce panels. Useful for mobile devices with wierd resolutions.
+	 * Draws the bounce panels. Useful for mobile devices with weird resolutions.
 	 * 
 	 * @param	Height	The height of the panel to draw.
 	 * @return	A BitmapData object representing the paddle. Cached for the second paddle to save time.
