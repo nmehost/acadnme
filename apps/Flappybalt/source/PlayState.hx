@@ -55,11 +55,7 @@ class PlayState extends FlxState
 		_scoreDisplay.color = 0xff868696;
 		add(_scoreDisplay);
 		
-		#if mobile
-		_scoreDisplay.text = "Tap to start";
-		#else
-		_scoreDisplay.text = "Press Space to start";
-		#end
+		_scoreDisplay.text = "[Start]";
 		
 		// Update all-time high score.
 		

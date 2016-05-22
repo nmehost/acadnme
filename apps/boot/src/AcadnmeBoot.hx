@@ -244,9 +244,28 @@ class AcadnmeBoot extends Screen implements IBoot
             idx++;
          }
 
-         tileCtrl.add(createDetails(bitmap, defaultDir,details.name,details.developer, null, path));
+         var disabled = getHeaderError(details.engines);
+            
+         tileCtrl.add(createDetails(bitmap, defaultDir,details.name,details.developer, disabled, path));
       }
    }
+
+   public function getHeaderError(engines:Array<{name:String, version:String}>) : String
+   {
+      if (engines==null || engines.length==0)
+         return "No version";
+
+      var haveEngines:Array<{name:String, version:String}> = Acadnme.getEngines();
+      if (engines!=null && haveEngines!=null)
+      {
+            for(e in engines)
+               for(h in haveEngines)
+                  if (e.name==h.name && e.version==h.version)
+                     return null;
+      }
+      return "Version mismatch " + engines[0].name + " " + engines[0].version;
+   }
+
 
    public function fillList()
    {
@@ -283,8 +302,8 @@ class AcadnmeBoot extends Screen implements IBoot
                         if (header!=null)
                         {
                            var engines = header.engines;
-                           if (engines!=null)
-                              disabled = null;
+                           if (disabled!=null)
+                              disabled = getHeaderError(engines);
                            if (header.developer!=null)
                               developer = "developer:" + header.developer;
                            if (header.name!=null)

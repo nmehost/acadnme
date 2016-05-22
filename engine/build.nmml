@@ -70,7 +70,7 @@
   <ndll name="std" static="true" />
   <ndll name="zlib" static="true" />
 
-  <haxelib name="nme" />
+  <haxelib name="nme" static="true" />
   <haxedef name="scriptable" />
   <haxedef name="HXCPP_LINK_TOTAL_MEMORY" value="32000000"/>
   <haxeflag name="-dce no" />
