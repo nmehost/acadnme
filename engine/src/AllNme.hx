@@ -180,7 +180,6 @@ import nme.script.Nme;
 import nme.script.Server;
 import nme.script.Value;
 import nme.sensors.Accelerometer;
-import nme.StaticNme;
 import nme.system.ApplicationDomain;
 import nme.system.Capabilities;
 import nme.system.LoaderContext;
