@@ -4,6 +4,7 @@ import nme.display.Sprite;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
 import nme.script.Server;
+import nme.geom.Point;
 import nme.Assets;
 import nme.utils.ByteArray;
 import gm2d.Screen;
@@ -13,13 +14,18 @@ import gm2d.ui.TextLabel;
 import gm2d.ui.TileControl;
 import gm2d.ui.Widget;
 import gm2d.ui.Button;
+import gm2d.ui.TextInput;
+import gm2d.ui.CheckButtons;
 import gm2d.ui.Image;
 import gm2d.ui.ListControl;
 import gm2d.skin.FillStyle;
+import gm2d.skin.LineStyle;
+import gm2d.skin.Style;
 import gm2d.skin.Skin;
 import gm2d.svg.Svg;
 import gm2d.svg.SvgRenderer;
 import sys.FileSystem;
+import nme.net.SharedObject;
 import sys.io.File;
 
 using  StringTools;
@@ -29,12 +35,24 @@ class AcadnmeBoot extends Screen implements IBoot
    var defaultDir:String;
    var tileCtrl:TileControl;
    var launchScript:Map<String,String>;
+   var serverPassword:String;
+   var serverEnabled:Bool;
+   var store:SharedObject;
+   var storeData:Dynamic;
 
    public function new()
    {
       super();
 
       Acadnme.boot = this;
+
+      store = SharedObject.getLocal("acadnme-server");
+      storeData = store.data;
+
+      serverPassword = storeData.serverPassword ==null ? "" : storeData.serverPassword;
+      serverEnabled = storeData.serverEnabled==null ? true : storeData.serverEnabled;
+      Server.setEnabled(serverEnabled);
+      Server.setPassword(serverPassword);
 
 
       Server.functions["launch"] = launch;
@@ -43,6 +61,18 @@ class AcadnmeBoot extends Screen implements IBoot
       Server.functions["reload"] =  reloadSync;
       defaultDir = getDefaultDir();
 
+      var pad = Skin.scale(2);
+      Skin.guiLight = 0xf0f0f0;
+      Skin.guiDark = 0xa0a0a0;
+      Skin.replaceAttribs("DialogTitle", null, {
+          align: Layout.AlignStretch | Layout.AlignCenterY,
+          textAlign: "left",
+          fontSize: Skin.scale(20),
+          padding: new Rectangle(pad,pad,pad*2,pad*2),
+          style: StyleUnderlineRect,
+          fill: FillSolid(0xffffff,1),
+          line: LineSolid(1,0xFF9800,2),
+        });
 
       setItemLayout( new VerticalLayout([0,1]).stretch() );
 
@@ -55,15 +85,24 @@ class AcadnmeBoot extends Screen implements IBoot
          {
             if (titleText!="")
                titleText += " + ";
-            titleText += engine.name + "(v" + engine.version + ")";
+            titleText += "!" + engine.name + "(v" + engine.version + ")";
          }
          if (titleText=="")
             titleText = "No engine setting found";
          var accent = 0xFFF3E0;
          titleBar.addWidget( new TextLabel(titleText,{ textColor:0xffffff, fontSize:Skin.scale(24), bold:true, align:Layout.AlignCenterX|Layout.AlignTop }) );
          titleBar.addWidget(new TextLabel(defaultDir,{ textColor:accent, align: Layout.AlignCenterY|Layout.AlignLeft }) );
-         titleBar.addWidget(new TextLabel("Host:" + getConnectionStatus(),{ textColor:accent, align:Layout.AlignCenterY|Layout.AlignLeft }) );
-         titleBar.build();
+
+
+       var hostBar = new Widget({ align:Layout.AlignCenterY  });
+       hostBar.setItemLayout( new HorizontalLayout([1,0]).stretch() );
+
+       hostBar.addWidget(new TextLabel("Host:" + getConnectionStatus(),{ textColor:accent, align:Layout.AlignCenterY|Layout.AlignStretch }) );
+       hostBar.addWidget( Button.BMPButton( createMenuIcon(), onMenu, { style:StyleNone } ) );
+       hostBar.build();
+
+       titleBar.addWidget(hostBar);
+       titleBar.build();
 
 
       tileCtrl = new TileControl(["Stretch"], { padding:new Rectangle(10,0,20,10), columnWidth:400});
@@ -72,6 +111,50 @@ class AcadnmeBoot extends Screen implements IBoot
 
       build();
       makeCurrent();
+   }
+
+   function onEnable(inValue:Bool)
+   {
+      serverEnabled = inValue;
+      Server.setEnabled(inValue);
+      Reflect.setField(storeData, "serverEnabled", inValue);
+      store.flush();
+   }
+
+   function onPassword(inPassword:String)
+   {
+      serverPassword = inPassword;
+      Server.setPassword(inPassword);
+      Reflect.setField(storeData, "serverPassword", inPassword);
+      store.flush();
+   }
+
+   function onMenu()
+   {
+      var panel = new gm2d.ui.Panel("Settings");
+      panel.addLabelUI("Enable Network", new CheckButtons(serverEnabled, onEnable) );
+      panel.addLabelUI("Network Password", new TextInput(serverPassword, onPassword) );
+      panel.addTextButton("Ok", function() { gm2d.Game.closeDialog(); } );
+      panel.showDialog(true, { chromeButtons:[] } );
+   }
+
+   function createMenuIcon()
+   {
+      var gap = Skin.scale(1);
+      var bar = Skin.scale(2);
+      var size = gap * 6+bar*5;
+      var bmp = new BitmapData(size,size, true, 0x0);
+      var y = gap;
+      var shape = new nme.display.Shape();
+      var gfx = shape.graphics;
+      gfx.beginFill(0xffffff);
+      for(r in 0...3)
+      {
+         gfx.drawRect(1,y,size-1,bar);
+         y+= gap*2 + bar;
+      }
+      bmp.draw(shape);
+      return bmp;
    }
 
 
