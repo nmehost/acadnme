@@ -85,7 +85,7 @@ class AcadnmeBoot extends Screen implements IBoot
          {
             if (titleText!="")
                titleText += " + ";
-            titleText += "!" + engine.name + "(v" + engine.version + ")";
+            titleText += engine.name + "(v" + engine.version + ")";
          }
          if (titleText=="")
             titleText = "No engine setting found";
